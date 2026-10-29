@@ -6,22 +6,22 @@
 using namespace std;
 
 int main() {
-    LinkedList library;
+    TaskList tasks;
     int choice = 0;
     int id, index, index1, index2;
-    string title;
+    string description;
 
     do {
-        cout << "\n===== LIBRARY BOOK COLLECTION SYSTEM =====\n";
-        cout << "1. Display All Books\n";
-        cout << "2. Insert Book at Head\n";
-        cout << "3. Remove Book from Head\n";
-        cout << "4. Insert Book at Index\n";
-        cout << "5. Remove Book at Index\n";
-        cout << "6. Swap Books\n";
-        cout << "7. Sort Books by ID\n";
-        cout << "8. Reverse Book Collection\n";
-        cout << "9. Check Collection Status\n";
+        cout << "\n===== STUDENT TASK MANAGER =====\n";
+        cout << "1. Display All Tasks\n";
+        cout << "2. Insert Task at Head\n";
+        cout << "3. Remove Task from Head\n";
+        cout << "4. Insert Task at Index\n";
+        cout << "5. Remove Task at Index\n";
+        cout << "6. Swap Tasks\n";
+        cout << "7. Sort Tasks by ID\n";
+        cout << "8. Reverse Task List\n";
+        cout << "9. Check Task List Status\n";
         cout << "10. Exit\n";
         cout << "Enter your choice: ";
 
@@ -34,11 +34,11 @@ int main() {
 
         switch (choice) {
         case 1:
-            library.Print();
+            tasks.Print();
             break;
 
         case 2:
-            cout << "Enter book ID: ";
+            cout << "Enter task ID: ";
             if (!(cin >> id)) {
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -46,26 +46,26 @@ int main() {
                 break;
             }
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Enter book title: ";
-            getline(cin, title);
-            library.Insert(CreateBook(id, title));
-            cout << "Book inserted at head.\n";
+            cout << "Enter task description: ";
+            getline(cin, description);
+            tasks.Insert(CreateTask(id, description));
+            cout << "Task inserted at head.\n";
             break;
 
         case 3: {
-            BookNode* removed = library.Remove();
+            TaskNode* removed = tasks.Remove();
             if (removed != nullptr) {
-                cout << "Removed: " << removed->bookID << " - "
-                     << removed->title << '\n';
+                cout << "Removed: " << removed->taskID << " - "
+                     << removed->description << '\n';
                 delete removed;
             } else {
-                cout << "Collection is empty.\n";
+                cout << "Task list is empty.\n";
             }
             break;
         }
 
         case 4:
-            cout << "Enter book ID: ";
+            cout << "Enter task ID: ";
             if (!(cin >> id)) {
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -73,8 +73,8 @@ int main() {
                 break;
             }
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Enter book title: ";
-            getline(cin, title);
+            cout << "Enter task description: ";
+            getline(cin, description);
             cout << "Enter index (starting from 0): ";
             if (!(cin >> index)) {
                 cin.clear();
@@ -82,8 +82,8 @@ int main() {
                 cout << "Invalid index.\n";
                 break;
             }
-            library.InsertAt(CreateBook(id, title), index);
-            cout << "Book inserted.\n";
+            tasks.InsertAt(CreateTask(id, description), index);
+            cout << "Task inserted.\n";
             break;
 
         case 5:
@@ -95,12 +95,12 @@ int main() {
                 break;
             }
             {
-                BookNode* removed = library.RemoveAt(index);
+                TaskNode* removed = tasks.RemoveAt(index);
                 if (removed != nullptr) {
-                    cout << "Removed: " << removed->title << '\n';
+                    cout << "Removed: " << removed->description << '\n';
                     delete removed;
                 } else {
-                    cout << "Invalid index or empty collection.\n";
+                    cout << "Invalid index or empty task list.\n";
                 }
             }
             break;
@@ -120,28 +120,28 @@ int main() {
                 cout << "Invalid index.\n";
                 break;
             }
-            if (library.Swap(index1, index2))
-                cout << "Books swapped.\n";
+            if (tasks.Swap(index1, index2))
+                cout << "Tasks swapped.\n";
             else
                 cout << "Invalid index.\n";
             break;
 
         case 7:
-            library.Sort();
-            cout << "Books sorted by ID.\n";
+            tasks.Sort();
+            cout << "Tasks sorted by ID.\n";
             break;
 
         case 8:
-            library.Reverse();
-            cout << "Collection reversed.\n";
+            tasks.Reverse();
+            cout << "Task list reversed.\n";
             break;
 
         case 9:
-            if (library.IsEmpty())
-                cout << "The collection is empty.\n";
+            if (tasks.IsEmpty())
+                cout << "The task list is empty.\n";
             else
-                cout << "The collection is not empty.\n";
-            cout << "Total books: " << library.Size() << '\n';
+                cout << "The task list is not empty.\n";
+            cout << "Total tasks: " << tasks.Size() << '\n';
             break;
 
         case 10:
